@@ -1,7 +1,7 @@
 name: atoms
 description: Atoms
-version: 1.0.0
-homepage:
+version: 1.0.1
+homepage: https://github.com/alnitak/atoms
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

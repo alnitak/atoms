@@ -66,7 +66,7 @@ class Atoms extends StatefulWidget {
 
 
 class _AtomsState extends State<Atoms>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController? controller;
 
   late List<_AtomPhysics> atoms;
@@ -81,8 +81,10 @@ class _AtomsState extends State<Atoms>
     _width = 0;
     _height = 0;
 
+    WidgetsBinding.instance.addObserver(this);
+
     /// at the first frame get the widget size
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final RenderObject? object = context.findRenderObject();
       final Size size = object?.semanticBounds.size ?? Size.zero;
       _width = size.width;
@@ -147,6 +149,29 @@ class _AtomsState extends State<Atoms>
   void reassemble() {
     _generateAtoms();
     super.reassemble();
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final RenderObject? object = context.findRenderObject();
+      final Size size = object?.semanticBounds.size ?? Size.zero;
+      _width = size.width;
+      _height = size.height;
+
+      /// initialize atoms
+      if (atoms.isEmpty) {
+        _generateAtoms();
+        setState(() {});
+      }
+    });
   }
 
   @override

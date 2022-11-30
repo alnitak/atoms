@@ -2,7 +2,7 @@
 
 Flutter fancy animated widget that can be used as a background.
 
-![Screenshot](https://github.com/alnitak/atoms/blob/master/images/atoms.gif?raw=true "Atoma Demo")
+![Screenshot](https://github.com/alnitak/atoms/blob/master/images/atoms.gif?raw=true "Atoms Demo")
 
 ## Atoms Widget Properties
 
